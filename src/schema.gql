@@ -1,0 +1,24 @@
+type Todo {
+  title: String!
+  completed: Boolean!
+  list: List
+  user: User
+}
+
+type List {
+  title: String!
+  todos: [Todo] @relation
+}
+
+type User {
+  name: String! @unique
+  email: String! @unique
+  password: String!
+  todos: [Todo!] @relation
+}
+
+type Query {
+  allTodos: [Todo!]
+  todosByCompletedFlag (completed: Boolean!): [Todo!]
+  allLists: [List!]
+}
