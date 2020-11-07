@@ -1,10 +1,24 @@
+interface LoginUserData {
+  loginUser: string;
+}
+
+interface CreateUserData {
+  createUser: IUser;
+}
+
+interface UserQueryData {
+  allUsers: {
+    data: IUser[];
+  };
+}
+
 interface AllTodosData {
   allTodos: {
     data: ITodo[];
   };
 }
 
-interface TodoByTitleData {
+interface TodoByIDData {
   findTodoByID: ITodo;
 }
 
@@ -26,4 +40,22 @@ interface ITodo {
   _id: string;
   title: string;
   completed: boolean;
+  list?: IList;
+  user?: IUser;
+}
+
+interface IList {
+  title: string;
+  todos?: {
+    data: ITodo[];
+  };
+}
+
+interface IUser {
+  _id: string;
+  name: string;
+  email: string;
+  todos?: {
+    data: ITodo[];
+  };
 }

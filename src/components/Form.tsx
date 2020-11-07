@@ -1,30 +1,46 @@
-import React, { FC, KeyboardEvent } from 'react';
+import React, { FC } from 'react';
 
 interface FormProps {
-  title: string;
-  setTitle: (value: string) => void;
-  handleInput?: (e: KeyboardEvent<HTMLInputElement>) => void;
-  handleSubmit: () => void;
+  value: string;
+  setValue: (value: string) => void;
+  handleSubmit?: () => void;
+  type?: string;
+  handleEnterKey?: boolean;
   placeholder?: string;
+  label?: string;
+  submitName?: string;
+  [inputOptions: string]: any;
 }
 
-export const Form: FC<FormProps> = ({
-  title,
-  setTitle,
+export const FormInput: FC<FormProps> = ({
+  value: title,
+  setValue: setTitle,
   handleSubmit,
-  handleInput,
-  placeholder
+  handleEnterKey,
+  placeholder,
+  label,
+  submitName: name,
+  type,
+  ...restProps
 }) => {
+  const handleInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== 'Enter' && !handleEnterKey) return;
+    if (handleSubmit) handleSubmit();
+  };
+
   return (
     <>
+      {label && <label htmlFor={name ?? 'form'}>{label}</label>}
       <input
-        type="text"
+        type={type ?? 'text'}
+        name={name ?? 'form'}
         value={title}
         onChange={e => setTitle(e.target.value)}
         onKeyPress={handleInput}
-        placeholder={placeholder ?? 'What todo...?'}
+        placeholder={placeholder ?? ''}
+        {...restProps}
       />
-      <button onClick={handleSubmit}>Submit</button>
+      {handleSubmit && <button onClick={handleSubmit}>{name ?? 'Submit'}</button>}
     </>
   );
 };

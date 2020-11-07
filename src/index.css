@@ -9,6 +9,7 @@ body {
 }
 
 h1 {
+  font-family: Montserrat, sans-serif;
   color: #6d6dff;
 }
 
@@ -16,16 +17,32 @@ ul {
   list-style: none;
   padding: 8px 0;
   background-color: #ebebeb;
+  display: flex;
 }
 
 li {
-  display: inline;
-  padding: 18px;
+  padding: 14px;
+}
+
+li:last-of-type {
+  margin-left: auto;
 }
 
 li a {
   text-decoration: none;
   color: #ff6a6a;
+  font-family: Lato, sans-serif;
+  text-transform: uppercase;
+}
+
+li a.active {
+  color: #6d6dff;
+}
+
+.auth a {
+  text-decoration: none;
+  color: #6d6dff;
+  margin-top: 20px;
 }
 
 span img {
@@ -41,21 +58,36 @@ img {
 }
 
 button {
+  cursor: pointer;
+  display: block;
   border: none;
   font-family: Montserrat, sans-serif;
   background-color: #ff6a6a;
   color: #fff;
-  padding: 5px 10px;
-  margin-left: 20px;
+  padding: 10px 15px;
   border-radius: 20px;
+  margin-top: 10px;
+}
+
+.auth button {
+  border-bottom-left-radius: 0;
+}
+
+label {
+  display: block;
 }
 
 input {
+  margin-bottom: 5px;
   padding: 10px;
-  border-radius: 20px;
-  border: 2px solid black;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border: 1px solid black;
+  font-family: Montserrat, sans-serif;
 }
 
-input:focus {
+input:focus,
+button:focus {
   outline: none;
 }

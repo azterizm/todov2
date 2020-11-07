@@ -1,20 +1,44 @@
-import { useQuery } from '@apollo/client';
-import React from 'react';
-import { ALL_TODOS } from './../gql';
+import { useLazyQuery, useQuery } from '@apollo/client';
+import React, { useEffect } from 'react';
+import { ALL_TODOS, USER_QUERY } from './../gql';
 import { Todo } from './../components/Todo';
-import { ErrorFallback } from '../components/ErrorFallback';
-import AllTodosLoader from '../loaders/AllTodosLoader';
+import { Redirect, useHistory } from 'react-router-dom';
+import { AllTodosLoader } from '../loaders/AllTodosLoader';
+import { count } from '../utils/todosCounter';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../state/userSlice';
 
 export const AllTodos = () => {
   const { loading, error, data } = useQuery<AllTodosData>(ALL_TODOS);
+  const [fetchUser, { data: userData }] = useLazyQuery<UserQueryData>(USER_QUERY);
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-  if (loading) return <AllTodosLoader />;
-  if (error) return <ErrorFallback error={error} />;
+  useEffect(() => {
+    if (!loading) {
+      if (data?.allTodos.data.length === 0) {
+        fetchUser();
+      }
+    }
+  }, [loading, fetchUser, data?.allTodos.data.length]);
+
+  if (loading) return <AllTodosLoader count={count} />;
+  if (error) {
+    if (localStorage.getItem('token')) {
+      history.go(0);
+    } else {
+      return <Redirect to="/welcome" />;
+    }
+  }
+
+  if (userData) {
+    dispatch(addUser(userData?.allUsers.data[0]));
+  }
 
   return (
     <>
-      {data?.allTodos.data.map(({ _id, title, completed }: ITodo, index: number) => (
-        <Todo key={_id} _id={_id} title={title} completed={completed} index={index + 1} />
+      {data?.allTodos.data.map(({ _id, ...data }: ITodo, index: number) => (
+        <Todo key={_id} index={index + 1} {...(data as ITodo)} _id={_id} />
       ))}
     </>
   );

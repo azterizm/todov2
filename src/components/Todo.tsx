@@ -6,15 +6,14 @@ import checkIcon from '../assets/check.png';
 import trashIcon from '../assets/trash.png';
 import editIcon from '../assets/edit.png';
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUser } from '../state/userSlice';
 
-interface TodoProps {
-  _id: string;
-  title: string;
-  completed: boolean;
+interface TodoProps extends ITodo {
   index: number;
 }
 
-export const Todo: FC<TodoProps> = ({ _id, title, completed, index }) => {
+export const Todo: FC<TodoProps> = ({ _id, title, completed, user, list, index }) => {
   const [completeTodo] = useMutation<UpdateTodoData>(UPDATE_TODO);
   const [deleteTodo] = useMutation<DeleteTodoData>(DELETE_TODO, {
     update: (cache, { data }) => {
@@ -34,9 +33,15 @@ export const Todo: FC<TodoProps> = ({ _id, title, completed, index }) => {
   });
 
   const history = useHistory();
+  const dispatch = useDispatch();
+  const reduxUser = useSelector((state: { user: IUser }) => state.user);
+
+  if (!reduxUser._id) {
+    dispatch(addUser(user));
+  }
 
   const handleComplete = (): void => {
-    completeTodo({ variables: { id: _id, title, completed: true } });
+    completeTodo({ variables: { id: _id, title, completed: !completed } });
   };
 
   const handleDelete = (): void => {

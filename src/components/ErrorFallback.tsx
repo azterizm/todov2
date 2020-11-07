@@ -2,12 +2,14 @@ import { ApolloError } from '@apollo/client';
 import React, { FC } from 'react';
 
 interface ErrorFallbackProps {
-  error: TErrorFallback;
+  error: TErrorFallback | string;
+  [x: string]: any;
 }
 
 type TErrorFallback = ApolloError | undefined;
 
-export const ErrorFallback: FC<ErrorFallbackProps> = ({ error }) => {
+export const ErrorFallback: FC<ErrorFallbackProps> = ({ error, ...props }) => {
   console.log(error);
-  return <h3>{error?.message || 'Unexpected behaviour occured.'}</h3>;
+  if (typeof error === 'string') return <h3 {...props}>{error}</h3>;
+  return <h3 {...props}>{error?.message || 'Unexpected behaviour occured.'}</h3>;
 };

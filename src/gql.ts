@@ -1,23 +1,57 @@
 import { gql } from '@apollo/client';
 
+export const LOGIN_USER = gql`
+  mutation LoginUser($email: String!, $password: String!) {
+    loginUser(input: { email: $email, password: $password })
+  }
+`;
+
+export const CREATE_USER = gql`
+  mutation CreateUser($name: String!, $email: String!, $password: String!) {
+    createUser(input: { name: $name, email: $email, password: $password, role: CLIENT }) {
+      _id
+      name
+      email
+    }
+  }
+`;
+
 export const ALL_TODOS = gql`
-  query {
+  query AllTodos {
     allTodos {
       data {
         _id
         title
         completed
+        list {
+          title
+          todos {
+            data {
+              _id
+              title
+              completed
+            }
+          }
+        }
+        user {
+          _id
+          name
+          email
+        }
       }
     }
   }
 `;
 
-export const TODO_BY_TITLE = gql`
+export const TODO_BY_ID = gql`
   query TodoByTitle($id: ID!) {
     findTodoByID(id: $id) {
       _id
       title
       completed
+      list {
+        title
+      }
     }
   }
 `;
@@ -33,11 +67,16 @@ export const UPDATE_TODO = gql`
 `;
 
 export const CREATE_TODO = gql`
-  mutation CreateTodo($title: String!, $completed: Boolean!) {
-    createTodo(data: { title: $title, completed: $completed }) {
+  mutation CreateTodo($title: String!, $completed: Boolean!, $userID: ID!) {
+    createTodo(data: { title: $title, completed: $completed, user: { connect: $userID } }) {
       _id
       title
       completed
+      user {
+        _id
+        name
+        email
+      }
     }
   }
 `;
@@ -46,6 +85,18 @@ export const DELETE_TODO = gql`
   mutation DeleteTodo($id: ID!) {
     deleteTodo(id: $id) {
       _id
+    }
+  }
+`;
+
+export const USER_QUERY = gql`
+  query {
+    allUsers {
+      data {
+        _id
+        name
+        email
+      }
     }
   }
 `;

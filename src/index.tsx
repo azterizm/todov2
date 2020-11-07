@@ -3,13 +3,15 @@ import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@ap
 import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
+import store from './state/store';
+import { Provider } from 'react-redux';
 
 import './index.css';
 
 const link = createHttpLink({
   uri: 'https://graphql.fauna.com/graphql',
   headers: {
-    authorization: `Bearer ${process.env.REACT_APP_DB_KEY}`
+    authorization: `Bearer ${localStorage.getItem('token') ?? process.env.REACT_APP_DB_KEY}`
   }
 });
 
@@ -23,6 +25,11 @@ const client = new ApolloClient({
             merge(_, incoming) {
               return incoming;
             }
+          },
+          list: {
+            merge(_, incoming) {
+              return incoming;
+            }
           }
         }
       }
@@ -33,7 +40,9 @@ const client = new ApolloClient({
 render(
   <ApolloProvider client={client}>
     <BrowserRouter>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </BrowserRouter>
   </ApolloProvider>,
   document.getElementById('root')
