@@ -13,6 +13,20 @@ h1 {
   color: #6d6dff;
 }
 
+.todo p {
+  color: #6d6dff;
+  margin: 0;
+}
+
+.lists h1 {
+  margin: 0;
+}
+
+.lists p {
+  color: #6d6dff;
+  margin: 0;
+}
+
 ul {
   list-style: none;
   padding: 8px 0;
@@ -39,7 +53,7 @@ li a.active {
   color: #6d6dff;
 }
 
-.auth a {
+a {
   text-decoration: none;
   color: #6d6dff;
   margin-top: 20px;
@@ -69,8 +83,8 @@ button {
   margin-top: 10px;
 }
 
-.auth button {
-  border-bottom-left-radius: 0;
+button:disabled {
+  background-color: #ffa8a8;
 }
 
 label {
@@ -89,5 +103,19 @@ input {
 
 input:focus,
 button:focus {
+  outline: none;
+}
+
+select {
+  border-radius: 20px;
+  padding: 10px;
+  padding-right: 46px;
+  border-top-left-radius: 0;
+  font-family: Montserrat, sans-serif;
+  border: 1px solid black;
+  color: #484848;
+}
+
+select:focus {
   outline: none;
 }

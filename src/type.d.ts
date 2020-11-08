@@ -12,6 +12,16 @@ interface UserQueryData {
   };
 }
 
+interface AllListsData {
+  allLists: {
+    data?: IList[];
+  };
+}
+
+interface CreateListData {
+  createList: IList;
+}
+
 interface AllTodosData {
   allTodos: {
     data: ITodo[];
@@ -45,6 +55,7 @@ interface ITodo {
 }
 
 interface IList {
+  _id: string;
   title: string;
   todos?: {
     data: ITodo[];

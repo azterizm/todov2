@@ -24,6 +24,7 @@ export const ALL_TODOS = gql`
         title
         completed
         list {
+          _id
           title
           todos {
             data {
@@ -50,6 +51,7 @@ export const TODO_BY_ID = gql`
       title
       completed
       list {
+        _id
         title
       }
     }
@@ -81,6 +83,39 @@ export const CREATE_TODO = gql`
   }
 `;
 
+export const CREATE_TODO_WITH_LIST = gql`
+  mutation CreateTodo($title: String!, $completed: Boolean!, $userID: ID!, $listID: ID) {
+    createTodo(
+      data: {
+        title: $title
+        completed: $completed
+        user: { connect: $userID }
+        list: { connect: $listID }
+      }
+    ) {
+      _id
+      title
+      completed
+      user {
+        _id
+        name
+        email
+      }
+      list {
+        _id
+        title
+        todos {
+          data {
+            _id
+            title
+            completed
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const DELETE_TODO = gql`
   mutation DeleteTodo($id: ID!) {
     deleteTodo(id: $id) {
@@ -97,6 +132,33 @@ export const USER_QUERY = gql`
         name
         email
       }
+    }
+  }
+`;
+
+export const ALL_LISTS = gql`
+  query {
+    allLists {
+      data {
+        _id
+        title
+        todos {
+          data {
+            _id
+            title
+            completed
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const CREATE_LIST = gql`
+  mutation CreateList($title: String!, $userID: ID!) {
+    createList(data: { title: $title, user: { connect: $userID } }) {
+      _id
+      title
     }
   }
 `;

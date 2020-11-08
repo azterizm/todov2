@@ -28,6 +28,11 @@ export const Header: FC = () => {
             </NavLink>
           </li>
           <li>
+            <NavLink exact to="/lists">
+              Lists
+            </NavLink>
+          </li>
+          <li>
             <a href="/" onClick={handleLogout}>
               Logout
             </a>

@@ -57,8 +57,8 @@ export const Todo: FC<TodoProps> = ({ _id, title, completed, user, list, index }
   const edit: ReactElement = <img src={editIcon} alt="" />;
 
   return (
-    <div id={_id}>
-      <h1>
+    <div className="todo">
+      <h1 style={{ marginBottom: list ? 0 : '' }}>
         {index}. {title}
         <span onClick={handleComplete}>{completed ? done : pending}</span>
         <span onClick={handleUpdate}>{edit}</span>
@@ -66,6 +66,7 @@ export const Todo: FC<TodoProps> = ({ _id, title, completed, user, list, index }
           <img src={trashIcon} alt="" />
         </span>
       </h1>
+      <p>{list?.title}</p>
       <hr />
     </div>
   );
