@@ -22,6 +22,12 @@ interface CreateListData {
   createList: IList;
 }
 
+interface DeleteListData {
+  deleteList: {
+    _id: string;
+  };
+}
+
 interface AllTodosData {
   allTodos: {
     data: ITodo[];

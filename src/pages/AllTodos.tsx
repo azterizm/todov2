@@ -35,6 +35,8 @@ export const AllTodos = () => {
     dispatch(addUser(userData?.allUsers.data[0]));
   }
 
+  console.log('data: ', data);
+
   return (
     <>
       {data?.allTodos.data.map(({ _id, ...data }: ITodo, index: number) => (

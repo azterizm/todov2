@@ -30,6 +30,11 @@ const client = new ApolloClient({
             merge(_, incoming) {
               return incoming;
             }
+          },
+          allLists: {
+            merge(_, incoming) {
+              return incoming;
+            }
           }
         }
       }
