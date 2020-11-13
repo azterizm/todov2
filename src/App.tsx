@@ -14,6 +14,7 @@ import { Welcome } from './pages/Welcome';
 //TODO handle error "The id provided is too large: ''" in createTodo
 //TODO allTodos pagination
 //TODO add Date feature
+//TODO find a way to get user token from backend
 
 const App = () => {
   return (
