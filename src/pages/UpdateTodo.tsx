@@ -7,14 +7,13 @@ import { ErrorFallback } from '../components/ErrorFallback';
 import { FormInput } from '../components/Form';
 import { ListInput } from '../components/ListInput';
 import {
-  ALL_LISTS,
-  ALL_TODOS,
   TODO_BY_ID,
   UPDATE_TODO,
   UPDATE_TODO_WITH_CREATE_LIST,
   UPDATE_TODO_WITH_LIST,
   UPDATE_TODO_WITH_NO_LIST
 } from '../gql';
+import { updateTodoCacheManagment } from '../utils/cacheManagement';
 
 export const UpdateTodo: FC = () => {
   const [title, setTitle] = useState<string>('');
@@ -40,92 +39,18 @@ export const UpdateTodo: FC = () => {
     }
   );
 
+  const [updateTodo, { loading: updateLoading }] = useMutation<UpdateTodoData>(listMutation, {
+    onCompleted: () => history.push('/'),
+    update: (cache, { data }) => {
+      updateTodoCacheManagment(cache, data);
+    }
+  });
+
   useEffect(() => {
     if (todoData?.findTodoByID.list) {
       setListID(todoData.findTodoByID.list._id);
     }
   }, [id, todoData]);
-
-  const [updateTodo, { loading: updateLoading }] = useMutation<UpdateTodoData>(listMutation, {
-    onCompleted: () => history.push('/'),
-    update: (cache, { data }) => {
-      //no list assigned
-      if (typeof data?.updateTodo.list === 'undefined') {
-        const todoQuery: AllTodosData | null = cache.readQuery({ query: ALL_TODOS });
-        cache.writeQuery({
-          query: ALL_TODOS,
-          data: {
-            allTodos: {
-              data: [
-                ...todoQuery?.allTodos.data.filter(
-                  (todo: ITodo) => todo._id !== data?.updateTodo._id
-                ),
-                {
-                  _id: data?.updateTodo._id,
-                  title: data?.updateTodo.title,
-                  completed: data?.updateTodo.completed
-                }
-              ]
-            }
-          }
-        });
-      }
-
-      const listQuery: AllListsData | null = cache.readQuery({ query: ALL_LISTS });
-      const listContains: IList | undefined = listQuery?.allLists.data?.find(
-        (list: IList) => list._id === data?.updateTodo.list?._id
-      );
-
-      //create new list
-      if (!listContains) {
-        cache.writeQuery({
-          query: ALL_LISTS,
-          data: {
-            allLists: {
-              data: [
-                ...listQuery?.allLists.data,
-                {
-                  ...data?.updateTodo.list,
-                  todos: {
-                    __typename: 'TodoPage',
-                    data: [{ ...data?.updateTodo }]
-                  }
-                }
-              ]
-            }
-          }
-        });
-      }
-
-      //assign a list
-      if (listContains) {
-        const todoQuery: AllTodosData | null = cache.readQuery({ query: ALL_TODOS });
-        const targetList: IList | null = listContains;
-        const targetTodo: ITodo | undefined = todoQuery?.allTodos.data.find(
-          (todo: ITodo) => todo._id === data?.updateTodo._id
-        );
-        cache.writeQuery({
-          query: ALL_LISTS,
-          data: {
-            allLists: {
-              data: [
-                ...listQuery?.allLists.data?.filter(
-                  (list: IList) => list._id !== data?.updateTodo.list?._id
-                ),
-                {
-                  ...targetList,
-                  todos: {
-                    __typename: 'TodoPage',
-                    data: [...targetList?.todos?.data, targetTodo]
-                  }
-                }
-              ]
-            }
-          }
-        });
-      }
-    }
-  });
 
   const handleSubmit = (): void => {
     const updateTitle: string | undefined = title || todoData?.findTodoByID.title;

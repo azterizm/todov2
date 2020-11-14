@@ -7,7 +7,7 @@ import { FormInput } from '../components/Form';
 import { Loading } from '../components/Loading';
 import { CREATE_USER } from '../gql';
 import { addUser } from '../state/userSlice';
-import { emailReg } from '../utils/todosCounter';
+import { emailReg } from '../utils';
 
 export const SignUp: FC = () => {
   const [name, setName] = useState<string>('');

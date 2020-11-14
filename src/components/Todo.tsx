@@ -52,19 +52,18 @@ export const Todo: FC<TodoProps> = ({ _id, title, completed, user, list, index }
     history.push(`/update/${_id}`);
   };
 
-  const done: ReactElement = <img src={checkIcon} alt="" />;
-  const pending: ReactElement = <img src={recIcon} alt="" />;
-  const edit: ReactElement = <img src={editIcon} alt="" />;
+  const doneElem: ReactElement = <img src={checkIcon} alt="" />;
+  const pendingElem: ReactElement = <img src={recIcon} alt="" />;
+  const editElem: ReactElement = <img src={editIcon} alt="" />;
+  const deleteElem: ReactElement = <img src={trashIcon} alt="" />;
 
   return (
     <div className="todo">
       <h1 style={{ marginBottom: list ? 0 : '' }}>
         {index}. {title}
-        <span onClick={handleComplete}>{completed ? done : pending}</span>
-        <span onClick={handleUpdate}>{edit}</span>
-        <span onClick={handleDelete}>
-          <img src={trashIcon} alt="" />
-        </span>
+        <span onClick={handleComplete}>{completed ? doneElem : pendingElem}</span>
+        <span onClick={handleUpdate}>{editElem}</span>
+        <span onClick={handleDelete}>{deleteElem}</span>
       </h1>
       <p>{list?.title}</p>
       <hr />

@@ -4,7 +4,7 @@ import { ALL_TODOS, USER_QUERY } from './../gql';
 import { Todo } from './../components/Todo';
 import { Redirect, useHistory } from 'react-router-dom';
 import { AllTodosLoader } from '../loaders/AllTodosLoader';
-import { count } from '../utils/todosCounter';
+import { loaderCount } from '../utils';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../state/userSlice';
 
@@ -22,7 +22,7 @@ export const AllTodos = () => {
     }
   }, [loading, fetchUser, data?.allTodos.data.length]);
 
-  if (loading) return <AllTodosLoader count={count} />;
+  if (loading) return <AllTodosLoader count={loaderCount} />;
   if (error) {
     if (localStorage.getItem('token')) {
       history.go(0);
