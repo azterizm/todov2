@@ -11,8 +11,8 @@ import { SignUp } from './pages/SignUp';
 import { UpdateTodo } from './pages/UpdateTodo';
 import { Welcome } from './pages/Welcome';
 
+//TODO handle cache in list delete
 //TODO handle error "The id provided is too large: ''" in createTodo
-//TODO allTodos pagination
 //TODO add Date feature
 //TODO find a way to get user token from backend
 

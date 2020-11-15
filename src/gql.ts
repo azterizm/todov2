@@ -17,8 +17,8 @@ export const CREATE_USER = gql`
 `;
 
 export const ALL_TODOS = gql`
-  query AllTodos {
-    allTodos {
+  query AllTodos($size: Int, $cursor: String) {
+    allTodos(_size: $size, _cursor: $cursor) {
       data {
         _id
         title

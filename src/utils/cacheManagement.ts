@@ -10,11 +10,6 @@ export const listCacheManagment = (
     (list: IList) => list._id === data?.deleteList._id
   );
 
-  const allTodosData: AllTodosData | null = cache.readQuery({ query: ALL_TODOS });
-  const todoTarget: ITodo | undefined = allTodosData?.allTodos.data.find(
-    (todo: ITodo) => todo.list?._id === data?.deleteList._id
-  );
-
   cache.writeQuery({
     query: ALL_LISTS,
     data: {
@@ -26,17 +21,14 @@ export const listCacheManagment = (
     }
   });
 
+  const allTodosData: AllTodosData | null = cache.readQuery({ query: ALL_TODOS });
+  const listTargetIDs = [...listTarget?.todos?.data.map((todo: ITodo) => todo._id)];
   cache.writeQuery({
     query: ALL_TODOS,
     data: {
       allTodos: {
         data: [
-          ...allTodosData?.allTodos.data.filter((todo: ITodo) => todo._id !== todoTarget?._id),
-          {
-            _id: todoTarget?._id,
-            title: todoTarget?.title,
-            completed: todoTarget?.completed
-          }
+          ...allTodosData?.allTodos.data.filter((todo: ITodo) => !listTargetIDs.includes(todo._id))
         ]
       }
     }

@@ -34,6 +34,14 @@ interface AllTodosData {
   };
 }
 
+interface AllTodosPaginationData {
+  allTodos: {
+    data: ITodo[];
+    after: string;
+    before: string;
+  };
+}
+
 interface TodoByIDData {
   findTodoByID: ITodo;
 }
