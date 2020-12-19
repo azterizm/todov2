@@ -28,7 +28,7 @@ export const TodoPagination: FC<TodoPaginationProps> = ({
           Previous
         </button>
       )}
-      {cursor <= (todoLength ?? 20) && (
+      {cursor < (todoLength ?? 20) && (
         <button
           onClick={() => {
             setPrevCursor(cursor);

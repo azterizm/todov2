@@ -19,6 +19,7 @@ export const UpdateTodo: FC = () => {
   const [title, setTitle] = useState<string>('');
   const [listTitle, setListTitle] = useState<string>('');
   const [listID, setListID] = useState<string>('');
+  const [date, setDate] = useState<string>('');
   const { id }: { id: string } = useParams();
   const history = useHistory();
   const userID: string = useSelector((state: { user: IUser }) => state.user._id);
@@ -55,7 +56,15 @@ export const UpdateTodo: FC = () => {
   const handleSubmit = (): void => {
     const updateTitle: string | undefined = title || todoData?.findTodoByID.title;
     updateTodo({
-      variables: { id, title: updateTitle, completed: false, listID, listTitle, userID }
+      variables: {
+        id,
+        title: updateTitle,
+        completed: false,
+        listID,
+        listTitle,
+        userID,
+        date: date ? new Date(date).toISOString() : null
+      }
     });
   };
 
@@ -84,6 +93,13 @@ export const UpdateTodo: FC = () => {
           <option value={'CREATE_LIST'}>Create a new list...</option>
         </ListInput>
       )}
+      <FormInput
+        value={date}
+        setValue={setDate}
+        placeholder="You can leave me or change me"
+        label="Date"
+        type="datetime-local"
+      />
       <button onClick={handleSubmit} disabled={updateLoading}>
         {updateLoading ? 'Updating...' : 'Update'}
       </button>

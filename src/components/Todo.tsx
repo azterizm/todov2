@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ALL_TODOS, UPDATE_TODO, DELETE_TODO } from '../gql';
 import recIcon from '../assets/rec.png';
@@ -13,7 +13,8 @@ interface TodoProps extends ITodo {
   index: number;
 }
 
-export const Todo: FC<TodoProps> = ({ _id, title, completed, user, list, index }) => {
+export const Todo: FC<TodoProps> = ({ _id, title, completed, user, list, date, index }) => {
+  const [completedState, setCompletedState] = useState<boolean>(completed);
   const [completeTodo] = useMutation<UpdateTodoData>(UPDATE_TODO);
   const [deleteTodo] = useMutation<DeleteTodoData>(DELETE_TODO, {
     update: (cache, { data }) => {
@@ -36,11 +37,14 @@ export const Todo: FC<TodoProps> = ({ _id, title, completed, user, list, index }
   const dispatch = useDispatch();
   const reduxUser = useSelector((state: { user: IUser }) => state.user);
 
-  if (!reduxUser._id) {
+  if (!reduxUser) {
     dispatch(addUser(user));
   }
 
+  console.log('redux', reduxUser)
+
   const handleComplete = (): void => {
+    setCompletedState(e => !e)
     completeTodo({ variables: { id: _id, title, completed: !completed } });
   };
 
@@ -52,19 +56,31 @@ export const Todo: FC<TodoProps> = ({ _id, title, completed, user, list, index }
     history.push(`/update/${_id}`);
   };
 
-  const doneElem: ReactElement = <img src={checkIcon} alt="" />;
-  const pendingElem: ReactElement = <img src={recIcon} alt="" />;
-  const editElem: ReactElement = <img src={editIcon} alt="" />;
-  const deleteElem: ReactElement = <img src={trashIcon} alt="" />;
+  const doneElem: ReactElement = <img src={checkIcon} alt="Complete" />;
+  const pendingElem: ReactElement = <img src={recIcon} alt="Uncomplete" />;
+  const editElem: ReactElement = <img src={editIcon} alt="edit" />;
+  const deleteElem: ReactElement = <img src={trashIcon} alt="trash" />;
+
+  const todoDate: Date = new Date(date ?? '');
+  const dateData: string = todoDate.toDateString();
+  const dateRender: string = dateData.substring(0, dateData.length - 5);
+  const timeData: string = todoDate.toLocaleTimeString();
+  const timeRender: string = [timeData.substring(0, 4), timeData.substring(8)].join(' ');
 
   return (
     <div className="todo">
       <h1 style={{ marginBottom: list ? 0 : '' }}>
         {index}. {title}
-        <span onClick={handleComplete}>{completed ? doneElem : pendingElem}</span>
-        <span onClick={handleUpdate}>{editElem}</span>
-        <span onClick={handleDelete}>{deleteElem}</span>
+        <span data-testid='completeTodo' onClick={handleComplete}>{completedState ? doneElem : pendingElem}</span>
+        <span data-testid='updateTodo' onClick={handleUpdate}>{editElem}</span>
+        <span data-testid='deleteTodo' onClick={handleDelete}>{deleteElem}</span>
       </h1>
+      {date && (
+        <div className="date">
+          <p>{dateRender}</p>
+          <p>{timeRender}</p>
+        </div>
+      )}
       <p>{list?.title}</p>
       <hr />
     </div>

@@ -23,6 +23,7 @@ export const ALL_TODOS = gql`
         _id
         title
         completed
+        date
         list {
           _id
           title
@@ -50,6 +51,7 @@ export const TODO_BY_ID = gql`
       _id
       title
       completed
+      date
       list {
         _id
         title
@@ -59,24 +61,32 @@ export const TODO_BY_ID = gql`
 `;
 
 export const UPDATE_TODO = gql`
-  mutation UpdateTodo($id: ID!, $title: String!, $completed: Boolean!) {
-    updateTodo(id: $id, data: { title: $title, completed: $completed }) {
+  mutation updateTodo($id: ID!, $title: String!, $completed: Boolean!, $date: Time) {
+    updateTodo(id: $id, data: { title: $title, completed: $completed, date: $date }) {
       _id
       title
       completed
+      date
     }
   }
 `;
 
 export const UPDATE_TODO_WITH_LIST = gql`
-  mutation UpdateTodoWithList($id: ID!, $title: String!, $completed: Boolean!, $listID: ID!) {
+  mutation UpdateTodoWithList(
+    $id: ID!
+    $title: String!
+    $completed: Boolean!
+    $listID: ID!
+    $date: Time
+  ) {
     updateTodo(
       id: $id
-      data: { title: $title, completed: $completed, list: { connect: $listID } }
+      data: { title: $title, completed: $completed, date: $date, list: { connect: $listID } }
     ) {
       _id
       title
       completed
+      date
       list {
         _id
         title
@@ -86,14 +96,15 @@ export const UPDATE_TODO_WITH_LIST = gql`
 `;
 
 export const UPDATE_TODO_WITH_NO_LIST = gql`
-  mutation UpdateTodoWithNoList($id: ID!, $title: String!, $completed: Boolean!) {
+  mutation UpdateTodoWithNoList($id: ID!, $title: String!, $completed: Boolean!, $date: Time) {
     updateTodo(
       id: $id
-      data: { title: $title, completed: $completed, list: { disconnect: true } }
+      data: { title: $title, completed: $completed, date: $date, list: { disconnect: true } }
     ) {
       _id
       title
       completed
+      date
     }
   }
 `;
@@ -105,6 +116,7 @@ export const UPDATE_TODO_WITH_CREATE_LIST = gql`
     $completed: Boolean!
     $userID: ID!
     $listTitle: String!
+    $date: Time
   ) {
     updateTodo(
       id: $id
@@ -112,11 +124,13 @@ export const UPDATE_TODO_WITH_CREATE_LIST = gql`
         title: $title
         completed: $completed
         list: { create: { title: $listTitle, user: { connect: $userID } } }
+        date: $date
       }
     ) {
       _id
       title
       completed
+      date
       list {
         _id
         title
@@ -126,11 +140,14 @@ export const UPDATE_TODO_WITH_CREATE_LIST = gql`
 `;
 
 export const CREATE_TODO = gql`
-  mutation CreateTodo($title: String!, $completed: Boolean!, $userID: ID!) {
-    createTodo(data: { title: $title, completed: $completed, user: { connect: $userID } }) {
+  mutation CreateTodo($title: String!, $completed: Boolean!, $userID: ID!, $date: Time) {
+    createTodo(
+      data: { title: $title, completed: $completed, date: $date, user: { connect: $userID } }
+    ) {
       _id
       title
       completed
+      date
       user {
         _id
         name
@@ -141,11 +158,18 @@ export const CREATE_TODO = gql`
 `;
 
 export const CREATE_TODO_WITH_LIST = gql`
-  mutation CreateTodo($title: String!, $completed: Boolean!, $userID: ID!, $listID: ID) {
+  mutation CreateTodo(
+    $title: String!
+    $completed: Boolean!
+    $userID: ID!
+    $listID: ID
+    $date: Time
+  ) {
     createTodo(
       data: {
         title: $title
         completed: $completed
+        date: $date
         user: { connect: $userID }
         list: { connect: $listID }
       }
@@ -153,6 +177,7 @@ export const CREATE_TODO_WITH_LIST = gql`
       _id
       title
       completed
+      date
       user {
         _id
         name
@@ -212,6 +237,7 @@ export const ALL_LISTS = gql`
             _id
             title
             completed
+            date
           }
         }
       }

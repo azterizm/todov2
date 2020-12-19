@@ -13,6 +13,10 @@ h1 {
   color: #6d6dff;
 }
 
+.todo {
+  position: relative;
+}
+
 .todo p {
   color: #6d6dff;
   margin: 0;
@@ -118,4 +122,11 @@ select {
 
 select:focus {
   outline: none;
+}
+
+.date {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  text-align: center;
 }

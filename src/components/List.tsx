@@ -19,7 +19,7 @@ export const List: FC<ListProps> = ({ list }) => {
     deleteList({ variables: { id: list._id } });
   };
 
-  const deleteElem: ReactElement = <img src={trashIcon} alt="" onClick={handleDelete} />;
+  const deleteElem: ReactElement = <img data-testid='deleteList' src={trashIcon} alt="" onClick={handleDelete} />;
 
   return (
     <div className="list">

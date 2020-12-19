@@ -1,20 +1,18 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import { Header } from './components/Header';
-import { AllTodosLoader } from './loaders/AllTodosLoader';
-import { AllLists } from './pages/AllLists';
-import { AllTodos } from './pages/AllTodos';
-import { CreateList } from './pages/CreateList';
-import { CreateTodo } from './pages/CreateTodo';
-import { Login } from './pages/Login';
-import { SignUp } from './pages/SignUp';
-import { UpdateTodo } from './pages/UpdateTodo';
-import { Welcome } from './pages/Welcome';
+import {Route, Switch} from 'react-router-dom';
+import {Header} from './components/Header';
+import {AllTodosLoader} from './loaders/AllTodosLoader';
+import {AllLists} from './pages/AllLists';
+import {AllTodos} from './pages/AllTodos';
+import {CreateList} from './pages/CreateList';
+import {CreateTodo} from './pages/CreateTodo';
+import {Login} from './pages/Login';
+import {SignUp} from './pages/SignUp';
+import {UpdateTodo} from './pages/UpdateTodo';
+import {Welcome} from './pages/Welcome';
 
-//TODO handle cache in list delete
-//TODO handle error "The id provided is too large: ''" in createTodo
-//TODO add Date feature
-//TODO find a way to get user token from backend
+//Replace auth with rest api
+//make animations with spring
 
 const App = () => {
   return (

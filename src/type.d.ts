@@ -64,6 +64,7 @@ interface ITodo {
   _id: string;
   title: string;
   completed: boolean;
+  date?: string;
   list?: IList;
   user?: IUser;
 }
@@ -83,4 +84,14 @@ interface IUser {
   todos?: {
     data: ITodo[];
   };
+}
+
+interface MockResponse<T> {
+  request: {
+    query: DocumentNode,
+    variables?: any
+  },
+  result: {
+    data: T
+  }
 }

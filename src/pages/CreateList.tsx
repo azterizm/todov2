@@ -23,7 +23,9 @@ export const CreateList: FC = () => {
     }
   });
 
+  // Throws ID error when user is empty
   const userID: string = useSelector((state: { user: IUser }) => state.user._id);
+  console.log('userID: ', userID);
   const history = useHistory();
 
   const handleSubmit = (): void => {

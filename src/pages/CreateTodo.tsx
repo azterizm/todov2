@@ -10,6 +10,8 @@ import { ALL_TODOS, CREATE_TODO, CREATE_TODO_WITH_LIST } from '../gql';
 export const CreateTodo: FC = () => {
   const [title, setTitle] = useState<string>('');
   const [listID, setListID] = useState<string>('');
+  const [date, setDate] = useState<string>('');
+  console.log('date: ', date);
   const history = useHistory();
   const userID = useSelector((state: { user: IUser }) => state.user._id);
 
@@ -32,13 +34,23 @@ export const CreateTodo: FC = () => {
   );
 
   const handleSubmit = () => {
-    addTodo({ variables: { title, completed: false, userID, listID } });
+    const dateVar: string | null = date ? new Date(date).toISOString() : null;
+    addTodo({ variables: { title, completed: false, date: dateVar, userID, listID } });
   };
 
   return (
     <div className="createTodo">
-      <FormInput value={title} setValue={setTitle} label="Todo" placeholder="What todo...?" />
-      <ListInput ID={listID} setID={setListID} />
+      <div className="input">
+        <FormInput value={title} setValue={setTitle} label="Todo" placeholder="What todo...?" />
+        <ListInput ID={listID} setID={setListID} />
+        <FormInput
+          value={date}
+          setValue={setDate}
+          label="Date"
+          placeholder="When will that be...?"
+          type="datetime-local"
+        />
+      </div>
       <button onClick={handleSubmit} disabled={loading}>
         {loading ? 'Adding Todo...' : 'Add Todo'}
       </button>
