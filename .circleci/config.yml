@@ -17,6 +17,7 @@ jobs:
       - run:
           name: Run Local Server
           command: yarn run start
+          background: true
       - run:
           name: Yarn Test
           command: yarn run test
