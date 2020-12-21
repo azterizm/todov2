@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   node: circleci/node@4.1.0
+  puppeteer: threetreeslight/puppeteer@0.1.2
 
 jobs:
   test:
@@ -11,6 +12,7 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: yarn
+      - puppeteer/install
       - run:
           name: Yarn Test
           command: yarn run test
