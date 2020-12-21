@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { TodoPagination } from '../components/TodoPagination';
-import { useLazyQuery, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { ALL_TODOS, USER_QUERY } from './../gql';
 import { Todo } from './../components/Todo';
 import { Redirect, useHistory } from 'react-router-dom';
