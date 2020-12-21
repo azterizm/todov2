@@ -16,6 +16,7 @@ jobs:
       - run:
           name: Yarn Test
           command: yarn run test
+      - run: echo 'Done!'
 
 workflows:
   app_test:
