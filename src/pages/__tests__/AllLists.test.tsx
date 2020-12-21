@@ -5,7 +5,10 @@ let browser: Browser, p: Page
 
 jest.setTimeout(45000)
 beforeEach(async () => {
-  browser = await puppeteer.launch({ headless: false });
+  browser = await puppeteer.launch({
+    headless: false,
+    args: ['–no-sandbox' , '–disable-setuid-sandbox']
+  });
   p = await browser.newPage()
   await renderAllTodo(p)
 })

@@ -7,7 +7,7 @@ orbs:
 jobs:
   test:
     docker:
-      - image: cimg/node:lts
+      - image: cimg/node:lts-browsers
     steps:
       - checkout
       - node/install-packages:
