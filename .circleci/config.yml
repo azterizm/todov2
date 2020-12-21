@@ -7,7 +7,7 @@ orbs:
 jobs:
   test:
     docker:
-      - image: cimg/node:latest-browsers
+      - image: circleci/node:latest-browsers
     steps:
       - checkout
       - node/install-packages:
