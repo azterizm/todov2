@@ -1,21 +1,9 @@
+version: 2.1
+
 orbs:
   node: circleci/node@4.1.0
 
-version: 2.1
-
-jobs:
-  echo_ls:
-    docker:
-      - image: cimg/node:lts
-      auth:
-        username: mydockerhub-user
-        password: $DOCKERHUB_PASSWORD
-    steps:
-      run: ls -a
-
 workflows:
-  test-and-deploy:
+  test_app:
     jobs:
-      - echo_ls
       - node/test
-      - echo_ls
