@@ -1,5 +1,5 @@
 orbs:
-  node: circleci/node@x.y
+  node: circleci/node@4.1.0
 
 version: 2.1
 
