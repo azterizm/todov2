@@ -12,11 +12,11 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: yarn
-      - puppeteer/install
       - run:
           name: Run Local Server
           command: yarn run start
           background: true
+      - puppeteer/install
       - run:
           name: Yarn Test
           command: yarn run test
@@ -25,6 +25,3 @@ workflows:
   app_test:
     jobs:
       - test
-
-
-
