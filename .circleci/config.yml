@@ -19,7 +19,9 @@ jobs:
     docker:
       - image: 'cimg/node:lts'
     environment:
-      JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
+      JEST_JUNIT_OUTPUT_DIR: ./reports/
+      JEST_JUNIT_OUTPUT_NAME: 'junit-output.xml'
+      JEST_JUNIT_UNIQUE_OUTPUT_NAME: 'true'
     steps:
       - attach_workspace:
           at: .
@@ -27,9 +29,9 @@ jobs:
           name: Run Tests
           command: yarn run test --silent --ci --reporters=default --reporters=jest-junit
       - store_test_results:
-          path: ./reports/junit/
+          path: ./reports/
       - store_artifacts:
-          path: ./reports/junit
+          path: ./reports/
 
 
 workflows:
