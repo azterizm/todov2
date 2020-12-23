@@ -27,7 +27,7 @@ jobs:
           at: .
       - run:
           name: Run Tests
-          command: yarn run test --silent --ci --reporters=default --reporters=jest-junit
+          command: yarn run test --ci --reporters=default --reporters=jest-junit
       - store_test_results:
           path: ./reports/
       - store_artifacts:
