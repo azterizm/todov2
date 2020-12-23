@@ -4,15 +4,25 @@ orbs:
   node: circleci/node@4.1.0
 
 jobs:
+  prepare_dependencies:
+    docker:
+      - image: 'cimg/node:lts'
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
   test:
     docker:
       - image: 'cimg/node:lts-browsers'
     environment:
       JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
     steps:
-      - checkout
-      - node/install-packages:
-          pkg-manager: yarn
+      - attach_workspace:
+          at: .
       - run:
           name: Run Tests
           command: yarn run test --silent --ci --reporters=default --reporters=jest-junit
@@ -21,7 +31,11 @@ jobs:
       - store_artifacts:
           path: ./reports/junit
 
+
 workflows:
   test_app:
     jobs:
-      - test
+      - prepare_dependencies
+      - test:
+          requires:
+            - prepare_dependencies
