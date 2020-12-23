@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="8" failures="0" errors="0" time="5.016">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2020-12-22T15:34:01" time="2.423" tests="1">
+    <testcase classname=" multiple list" name=" multiple list" time="0.228">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2020-12-22T15:34:00" time="2.818" tests="1">
+    <testcase classname=" gives error" name=" gives error" time="0.038">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2020-12-22T15:34:03" time="0.525" tests="2">
+    <testcase classname=" loads correctly" name=" loads correctly" time="0.095">
+    </testcase>
+    <testcase classname=" can be completed" name=" can be completed" time="0.047">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2020-12-22T15:34:04" time="0.288" tests="2">
+    <testcase classname=" create a controlled input" name=" create a controlled input" time="0.028">
+    </testcase>
+    <testcase classname=" render placeholder and label" name=" render placeholder and label" time="0.005">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2020-12-22T15:34:03" time="0.683" tests="2">
+    <testcase classname=" without todo list" name=" without todo list" time="0.103">
+    </testcase>
+    <testcase classname=" with todo list" name=" with todo list" time="0.031">
+    </testcase>
+  </testsuite>
+</testsuites>

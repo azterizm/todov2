@@ -3,7 +3,19 @@ version: 2.1
 orbs:
   node: circleci/node@4.1.0
 
+jobs: 
+  test:
+    docker:
+      - image: 'cimg/node:lts-browsers'
+    steps:
+      - run: checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - run: 
+          name: Run Tests
+          command: yarn run test
+
 workflows:
   test_app:
     jobs:
-      - node/test
+      - test

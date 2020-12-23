@@ -16,7 +16,7 @@ export const CreateList: FC = () => {
         query: ALL_LISTS,
         data: {
           allLists: {
-            data: [...queryData?.allLists.data, data?.createList]
+            data: [...queryData?.allLists.data as any, data?.createList]
           }
         }
       });

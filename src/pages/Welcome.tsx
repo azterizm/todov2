@@ -11,7 +11,7 @@ export const Welcome: FC = () => {
         Go ahead <strong>Login</strong> to get started!
       </p>
       <Link to="/login" style={{ textDecoration: 'none', color: '#6d6def' }}>
-        Login
+        Get Started
       </Link>
     </div>
   );

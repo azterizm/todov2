@@ -16,6 +16,7 @@
     "@types/react-router-dom": "^5.1.6",
     "axios": "^0.21.0",
     "graphql": "^15.4.0",
+    "jest-junit": "^12.0.0",
     "querystring": "^0.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -50,5 +51,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "jest-localstorage-mock": "^2.4.6"
   }
 }

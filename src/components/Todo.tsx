@@ -26,7 +26,7 @@ export const Todo: FC<TodoProps> = ({ _id, title, completed, user, list, date, i
         query: ALL_TODOS,
         data: {
           allTodos: {
-            data: [...queryData?.allTodos.data.filter((todo: ITodo) => todo._id !== target?._id)]
+            data: [...queryData?.allTodos.data.filter((todo: ITodo) => todo._id !== target?._id) as any]
           }
         }
       });
