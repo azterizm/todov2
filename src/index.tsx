@@ -10,8 +10,6 @@ import './index.css';
 
 const authKey = localStorage.getItem('token') ?? process.env.REACT_APP_DB_KEY
 
-console.log('process.env', process.env)
-
 const link = createHttpLink({
   uri: 'https://graphql.fauna.com/graphql',
   headers: {
