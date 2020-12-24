@@ -95,7 +95,7 @@ const mockDeleteTodo = {
   }
 }
 
-const cache = new InMemoryCache({
+export const cacheMock = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
@@ -137,7 +137,7 @@ test('multiple todo', async () => {
 
 it('can be deleted', async () => {
   render(
-    <MockedProvider mocks={[mockTodosData, mockUserQuery, mockDeleteTodo]} addTypename={true} cache={cache}>
+    <MockedProvider mocks={[mockTodosData, mockUserQuery, mockDeleteTodo]} addTypename={true} cache={cacheMock}>
       <Provider store={store}>
         <MemoryRouter initialEntries={['/welcome', '/']}>
           <AllTodos />
