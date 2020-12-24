@@ -11,7 +11,6 @@ export const CreateTodo: FC = () => {
   const [title, setTitle] = useState<string>('');
   const [listID, setListID] = useState<string>('');
   const [date, setDate] = useState<string>('');
-  console.log('date: ', date);
   const history = useHistory();
   const userID = useSelector((state: { user: IUser }) => state.user._id);
 

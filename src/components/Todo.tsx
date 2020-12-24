@@ -41,8 +41,6 @@ export const Todo: FC<TodoProps> = ({ _id, title, completed, user, list, date, i
     dispatch(addUser(user));
   }
 
-  console.log('redux', reduxUser)
-
   const handleComplete = (): void => {
     setCompletedState(e => !e)
     completeTodo({ variables: { id: _id, title, completed: !completed } });
