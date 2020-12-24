@@ -8,10 +8,12 @@ import { Provider } from 'react-redux';
 
 import './index.css';
 
+const authKey = localStorage.getItem('token') ?? process.env.REACT_APP_DB_KEY
+
 const link = createHttpLink({
   uri: 'https://graphql.fauna.com/graphql',
   headers: {
-    authorization: `Bearer ${localStorage.getItem('token') ?? process.env.REACT_APP_DB_KEY}`
+    authorization: `Bearer ${authKey}`
   }
 });
 
