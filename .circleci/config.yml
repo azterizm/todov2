@@ -2,6 +2,8 @@ version: 2.1
 
 orbs:
   node: circleci/node@4.1.0
+  heroku: circleci/heroku@1.2.3
+
 
 jobs:
   prepare_dependencies:
@@ -32,6 +34,15 @@ jobs:
           path: ./reports/
       - store_artifacts:
           path: ./reports/
+  deploy:
+    docker:
+      - image: 'cimg/node:lts'
+    steps:
+      - attach_workspace:
+          at: .
+      - heroku/install
+      - heroku/deploy-via-git:
+          maintenance-mode: true
 
 
 workflows:
@@ -41,3 +52,7 @@ workflows:
       - test:
           requires:
             - prepare_dependencies
+      - deploy:
+          requires:
+            - prepare_dependencies
+            - test
