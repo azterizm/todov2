@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import store from './state/store';
 import { Provider } from 'react-redux';
+import * as serviceWorker from './serviceWorker';
 
 import './index.css';
 
@@ -54,3 +55,5 @@ render(
   </ApolloProvider>,
   document.getElementById('root')
 );
+
+serviceWorker.register()

@@ -17,12 +17,13 @@ jobs:
           root: .
           paths:
             - .
+
   test:
     docker:
       - image: 'cimg/node:lts'
     environment:
       JEST_JUNIT_OUTPUT_DIR: ./reports/
-      JEST_JUNIT_OUTPUT_NAME: 'junit-output.xml'
+      JEST_JUNIT_OUTPUT_NAME: 'junit.xml'
       JEST_JUNIT_UNIQUE_OUTPUT_NAME: 'true'
     steps:
       - attach_workspace:
@@ -34,6 +35,7 @@ jobs:
           path: ./reports/
       - store_artifacts:
           path: ./reports/
+
   deploy:
     docker:
       - image: 'cimg/node:lts'
