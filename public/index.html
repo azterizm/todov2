@@ -31,134 +31,29 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
-    <style type="text/css">
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-          Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-      }
-
-      .container {
-        max-width: 80%;
-        margin: 0 auto;
-      }
-
-      h1 {
-        font-family: Montserrat, sans-serif;
-        color: #4c4cb2;
-      }
-
-      .todo {
-        position: relative;
-      }
-
-      .todo p {
-        color: #4c4cb2;
-        margin: 0;
-      }
-
-      .lists h1 {
-        margin: 0;
-      }
-
-      .lists p {
-        color: #4c4cb2;
-        margin: 0;
-      }
-
-      ul {
-        list-style: none;
-        padding: 8px 0;
-        background-color: #ebebeb;
-        display: flex;
-      }
-
-      li {
-        padding: 14px;
-      }
-
-      li:last-of-type {
-        margin-left: auto;
-      }
-
-      li a {
-        text-decoration: none;
-        color: #a00000;
-        font-family: Lato, sans-serif;
-        text-transform: uppercase;
-      }
-
-      li a.active {
-        color: #4c4cb2;
-      }
-
-      a {
-        text-decoration: none;
-        color: #4c4cb2;
-        margin-top: 20px;
-      }
-
-      span img {
-        display: inline;
-        width: 18px;
-        float: right;
-        padding-top: 15px;
-        padding-left: 8px;
-      }
-
-      img {
-        cursor: pointer;
-      }
-
-      button {
-        cursor: pointer;
-        display: block;
-        border: none;
-        font-family: Montserrat, sans-serif;
-        background-color: #a00000;
-        color: #fff;
-        padding: 10px 15px;
-        border-radius: 20px;
-        margin-top: 10px;
-      }
-
-      button:disabled {
-        background-color: #ffa8a8;
-      }
-    </style>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>
+      <h1>
+        Hey, you gotta enable that JavaScript to go any further in this website.
+      </h1>
+      <p>Refer: <a href='https://support.google.com/adsense/answer/12654?hl=en'>Google Support Answer </a>for help.</p>
+    </noscript>
     <div id="root">
-      <div class="container">
-        <ul>
-          <li><a href="/login">Login</a></li>
-        </ul>
-        <div class="Welcome">
-          <h1>Modern Stack Todo App</h1>
-          <p>
-            This is probably a normal todo app but this project aimed to make use of
-            the most of best practices. <br />Go ahead <strong>Login</strong> to get
-            started!
-          </p>
-          <a href="/login" style="text-decoration: none;"
-            >Get Started</a
-          >
-        </div>
-      </div>
     </div>
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
           navigator.serviceWorker.register('worker.js').then(function(registration) {
-            console.log('Worker registration successful', registration.scope);
+            console.log('Worker SUCCESS');
           }, function(err) {
-            console.log('Worker registration failed', err);
+            console.log('Worker FAIL', err);
           }).catch(function(err) {
             console.log(err);
           });
         });
       } else {
-        console.log('Service Worker is not supported by browser.');
+        console.log('Worker NOT_SUPPORTED');
       }
     </script>
   </body>
