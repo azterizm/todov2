@@ -10,7 +10,7 @@ export const Welcome: FC = () => {
         practices. <br />
         Go ahead <strong>Login</strong> to get started!
       </p>
-      <Link to="/login" style={{ textDecoration: 'none', color: '#6d6def' }}>
+      <Link to="/login" style={{ textDecoration: 'none', color: '#4c4cb2' }}>
         Get Started
       </Link>
     </div>

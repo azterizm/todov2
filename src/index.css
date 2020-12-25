@@ -10,7 +10,7 @@ body {
 
 h1 {
   font-family: Montserrat, sans-serif;
-  color: #6d6dff;
+  color: #4c4cb2;
 }
 
 .todo {
@@ -18,7 +18,7 @@ h1 {
 }
 
 .todo p {
-  color: #6d6dff;
+  color: #4c4cb2;
   margin: 0;
 }
 
@@ -27,7 +27,7 @@ h1 {
 }
 
 .lists p {
-  color: #6d6dff;
+  color: #4c4cb2;
   margin: 0;
 }
 
@@ -48,18 +48,18 @@ li:last-of-type {
 
 li a {
   text-decoration: none;
-  color: #ff6a6a;
+  color: #a00000;
   font-family: Lato, sans-serif;
   text-transform: uppercase;
 }
 
 li a.active {
-  color: #6d6dff;
+  color: #4c4cb2;
 }
 
 a {
   text-decoration: none;
-  color: #6d6dff;
+  color: #4c4cb2;
   margin-top: 20px;
 }
 
@@ -80,7 +80,7 @@ button {
   display: block;
   border: none;
   font-family: Montserrat, sans-serif;
-  background-color: #ff6a6a;
+  background-color: #a00000;
   color: #fff;
   padding: 10px 15px;
   border-radius: 20px;
