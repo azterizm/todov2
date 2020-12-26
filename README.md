@@ -2,6 +2,8 @@
 
 Todo App that might actually be reliable.
 
+![alt text](https://i.ibb.co/dmgWnJV/image.jpg)
+
 ## Available Scripts
 
 In the project directory, you can run:
