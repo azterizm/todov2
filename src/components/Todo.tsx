@@ -36,7 +36,6 @@ export const Todo: FC<TodoProps> = ({ _id, title, completed, user, list, date, i
   const history = useHistory();
   const dispatch = useDispatch();
   const reduxUser = useSelector((state: { user: IUser }) => state.user);
-  console.log(reduxUser)
 
   if (!reduxUser) {
     dispatch(addUser(user));

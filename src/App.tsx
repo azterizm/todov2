@@ -3,17 +3,16 @@ import { lazily } from 'react-lazily';
 import { Route, Switch } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Loading } from './components/Loading';
-import { AllTodosLoader } from './loaders/AllTodosLoader';
-import * as serviceWorker from './serviceWorker'
+import { AllTodos } from './pages/AllTodos';
+import { Login } from './pages/Login';
+import { SignUp } from './pages/SignUp';
+import { Welcome } from './pages/Welcome';
+import * as serviceWorker from './serviceWorker';
 
-const { AllLists } = lazily(() => import('./pages/AllLists'))
-const { AllTodos } = lazily(() => import('./pages/AllTodos'))
-const { CreateList } = lazily(() => import('./pages/CreateList'))
 const { CreateTodo } = lazily(() => import('./pages/CreateTodo'))
-const { Login } = lazily(() => import('./pages/Login'))
-const { SignUp } = lazily(() => import('./pages/SignUp'))
 const { UpdateTodo } = lazily(() => import('./pages/UpdateTodo'))
-const { Welcome } = lazily(() => import('./pages/Welcome'))
+const { AllLists } = lazily(() => import('./pages/AllLists'))
+const { CreateList } = lazily(() => import('./pages/CreateList'))
 
 const App = () => {
   return (
@@ -31,9 +30,6 @@ const App = () => {
           <Route path="/update/:id" component={UpdateTodo} />
           <Route path="/lists" component={AllLists} />
           <Route path="/addlist" component={CreateList} />
-          <Route path="/test">
-            <AllTodosLoader count={5} />
-          </Route>
         </Switch>
       </Suspense>
     </div>
