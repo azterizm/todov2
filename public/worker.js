@@ -1,7 +1,8 @@
 var CACHE_NAME = 'pwa-task-manager';
 var urlsToCache = [
   '/',
-  '/completed'
+  '/completed',
+  'offline.html'
 ];
 
 // Install a service worker
@@ -25,7 +26,9 @@ self.addEventListener('fetch', event => {
         if (response) {
           return response;
         }
-        return fetch(event.request);
+        return fetch(event.request).catch(() => {
+          caches.match('offline.html')
+        })
       }
     )
   );
