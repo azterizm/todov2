@@ -54,10 +54,10 @@ export const Todo: FC<TodoProps> = ({ _id, title, completed, user, list, date, i
     history.push(`/update/${_id}`);
   };
 
-  const doneElem: ReactElement = <img src={checkIcon} alt="Complete" />;
-  const pendingElem: ReactElement = <img src={recIcon} alt="Uncomplete" />;
-  const editElem: ReactElement = <img src={editIcon} alt="edit" />;
-  const deleteElem: ReactElement = <img src={trashIcon} alt="trash" />;
+  const doneElem: ReactElement = <img src={checkIcon} alt="Complete" width='18' height='18' />;
+  const pendingElem: ReactElement = <img src={recIcon} alt="Uncomplete" width='18' height='18' />;
+  const editElem: ReactElement = <img src={editIcon} alt="edit" width='18' height='18' />;
+  const deleteElem: ReactElement = <img src={trashIcon} alt="trash" width='18' height='18' />;
 
   const todoDate: Date = new Date(date ?? '');
   const dateData: string = todoDate.toDateString();

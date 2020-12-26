@@ -3,6 +3,7 @@ import { lazily } from 'react-lazily';
 import { Route, Switch } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Loading } from './components/Loading';
+import { AllTodosLoader } from './loaders/AllTodosLoader';
 import { AllTodos } from './pages/AllTodos';
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
@@ -30,6 +31,9 @@ const App = () => {
           <Route path="/update/:id" component={UpdateTodo} />
           <Route path="/lists" component={AllLists} />
           <Route path="/addlist" component={CreateList} />
+          <Route path='/test'>
+            <AllTodosLoader count={6}/>
+          </Route>
         </Switch>
       </Suspense>
     </div>
