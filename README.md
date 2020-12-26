@@ -1,6 +1,7 @@
 # Getting Started with Create React App
 
 Todo App that might actually be reliable.
+![alt text](https://i.ibb.co/dmgWnJV/image.jpg)
 
 ## Available Scripts
 
