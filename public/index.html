@@ -165,7 +165,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
-        navigator.serviceWorker.register('worker.js').then(function (registration) {
+        navigator.serviceWorker.register('./worker.js').then(function (registration) {
           console.log('Worker SUCCESS');
         }, function (err) {
           console.log('Worker FAIL', err);
