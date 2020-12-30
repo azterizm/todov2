@@ -166,15 +166,11 @@
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
         navigator.serviceWorker.register('./worker.js').then(function (registration) {
-          console.log('Worker SUCCESS');
+          console.log('Worker SUCCESS', registration.scope);
         }, function (err) {
           console.log('Worker FAIL', err);
-        }).catch(function (err) {
-          console.log(err);
-        });
+        })
       });
-    } else {
-      console.log('Worker NOT_SUPPORTED');
     }
   </script>
 </body>

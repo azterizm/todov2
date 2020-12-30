@@ -6,6 +6,7 @@ import App from './App';
 import store from './state/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
+import { persistCache, LocalStorageWrapper } from 'apollo3-cache-persist';
 
 import './index.css';
 
@@ -18,41 +19,41 @@ const link = createHttpLink({
   }
 });
 
-const client = new ApolloClient({
-  link,
-  cache: new InMemoryCache({
-    typePolicies: {
-      Query: {
-        fields: {
-          allTodos: {
-            merge(_, incoming) {
-              return incoming;
-            }
-          },
-          list: {
-            merge(_, incoming) {
-              return incoming;
-            }
-          },
-          allLists: {
-            merge(_, incoming) {
-              return incoming;
-            }
+const cache = new InMemoryCache({
+  typePolicies: {
+    Query: {
+      fields: {
+        allTodos: {
+          merge(_, incoming) {
+            return incoming;
+          }
+        },
+        list: {
+          merge(_, incoming) {
+            return incoming;
+          }
+        },
+        allLists: {
+          merge(_, incoming) {
+            return incoming;
           }
         }
       }
     }
-  })
+  }
+})
+
+const client = new ApolloClient({
+  link,
+  cache
 });
 
 render(
-  <ApolloProvider client={client}>
     <BrowserRouter>
       <Provider store={store}>
         <App />
       </Provider>
-    </BrowserRouter>
-  </ApolloProvider>,
+    </BrowserRouter>,
   document.getElementById('root')
 );
 
