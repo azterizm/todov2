@@ -1,10 +1,11 @@
 {
   "short_name": "Todo App",
   "name": "Modern Todo App",
+  "description": "Create Todos in the most fashionable way.",
   "icons": [
     {
       "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "sizes": "48x48",
       "type": "image/x-icon"
     },
     {
@@ -21,6 +22,11 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#4c4cb2",
+  "background_color": "#ffffff",
+  "categories": ["productivity", "business", "web"],
+  "dir": "ltr",
+  "lang": "en",
+  "version": "1",
+  "manifest_version": 2
 }
