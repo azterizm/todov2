@@ -43,11 +43,23 @@ export const Todo: FC<TodoProps> = ({ _id, title, completed, user, list, date, i
 
   const handleComplete = (): void => {
     setCompletedState(e => !e)
-    completeTodo({ variables: { id: _id, title, completed: !completed } });
+    completeTodo({
+      variables: { id: _id, title, completed: !completed } ,
+      optimisticResponse: {
+        updateTodo: { _id, title, completed: !completed }
+      }
+    });
   };
 
   const handleDelete = (): void => {
-    deleteTodo({ variables: { id: _id } });
+    deleteTodo({
+      variables: { id: _id } ,
+      optimisticResponse: {
+        deleteTodo: {
+          _id
+        }
+      }
+    });
   };
 
   const handleUpdate = (): void => {

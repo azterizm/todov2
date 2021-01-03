@@ -12,7 +12,7 @@ export const CreateTodo: FC = () => {
   const [listID, setListID] = useState<string>('');
   const [date, setDate] = useState<string>('');
   const history = useHistory();
-  const userID = useSelector((state: { user: IUser }) => state.user._id);
+  const user: IUser | null = useSelector((state: { user: IUser }) => state.user);
 
   const [addTodo, { loading, error }] = useMutation<CreateTodoData>(
     listID ? CREATE_TODO_WITH_LIST : CREATE_TODO,
@@ -34,7 +34,22 @@ export const CreateTodo: FC = () => {
 
   const handleSubmit = () => {
     const dateVar: string | null = date ? new Date(date).toISOString() : null;
-    addTodo({ variables: { title, completed: false, date: dateVar, userID, listID } });
+    addTodo({
+      variables: { title, completed: false, date: dateVar, userID: user._id, listID },
+      optimisticResponse: {
+        createTodo: {
+          _id: '1',
+          title,
+          completed: false,
+          date: dateVar as any,
+          user: {
+            _id: user._id,
+            name: user.name,
+            email: user.email
+          }
+        }
+      }
+    });
   };
 
   return (

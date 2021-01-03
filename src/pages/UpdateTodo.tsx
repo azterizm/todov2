@@ -24,14 +24,15 @@ export const UpdateTodo: FC = () => {
   const history = useHistory();
   const userID: string = useSelector((state: { user: IUser }) => state.user._id);
 
-  const listMutation: DocumentNode =
+  const todoMutation: DocumentNode =
     listID === '' && listTitle === ''
       ? UPDATE_TODO_WITH_NO_LIST
       : listTitle
-      ? UPDATE_TODO_WITH_CREATE_LIST
-      : listID
-      ? UPDATE_TODO_WITH_LIST
-      : UPDATE_TODO;
+        ? UPDATE_TODO_WITH_CREATE_LIST
+        : listID
+          ? UPDATE_TODO_WITH_LIST
+          : UPDATE_TODO;
+
 
   const { data: todoData, loading: todoLoading, error: todoError } = useQuery<TodoByIDData>(
     TODO_BY_ID,
@@ -40,7 +41,7 @@ export const UpdateTodo: FC = () => {
     }
   );
 
-  const [updateTodo, { loading: updateLoading }] = useMutation<UpdateTodoData>(listMutation, {
+  const [updateTodo, { loading: updateLoading }] = useMutation<UpdateTodoData>(todoMutation, {
     onCompleted: () => history.push('/'),
     update: (cache, { data }) => {
       updateTodoCacheManagment(cache, data);
@@ -64,6 +65,18 @@ export const UpdateTodo: FC = () => {
         listTitle,
         userID,
         date: date ? new Date(date).toISOString() : null
+      },
+      optimisticResponse: {
+        updateTodo: {
+          _id: id,
+          title: updateTitle as any,
+          completed: false,
+          date: date ? new Date(date).toISOString() : null as any,
+          list: {
+            _id: listID,
+            title: listTitle
+          }
+        }
       }
     });
   };
@@ -89,10 +102,10 @@ export const UpdateTodo: FC = () => {
           placeholder="Name the very new list..."
         />
       ) : (
-        <ListInput ID={listID} setID={setListID}>
-          <option value={'CREATE_LIST'}>Create a new list...</option>
-        </ListInput>
-      )}
+          <ListInput ID={listID} setID={setListID}>
+            <option value={'CREATE_LIST'}>Create a new list...</option>
+          </ListInput>
+        )}
       <FormInput
         value={date}
         setValue={setDate}

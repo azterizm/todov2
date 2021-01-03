@@ -1,76 +1,32 @@
-import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
-import { LocalStorageWrapper, persistCache } from 'apollo3-cache-persist';
+import { ApolloProvider } from '@apollo/client';
 import React, { Suspense, useEffect, useState } from 'react';
-import { lazily } from 'react-lazily';
 import { Route, Switch } from 'react-router-dom';
+import { ErrorFallback } from './components/ErrorFallback';
 import { Header } from './components/Header';
 import { Loading } from './components/Loading';
 import { AllTodosLoader } from './loaders/AllTodosLoader';
+import { AllLists } from './pages/AllLists';
 import { AllTodos } from './pages/AllTodos';
+import { CreateList } from './pages/CreateList';
+import { CreateTodo } from './pages/CreateTodo';
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
+import { UpdateTodo } from './pages/UpdateTodo';
 import { Welcome } from './pages/Welcome';
 import * as serviceWorker from './serviceWorker';
-
-const { CreateTodo } = lazily(() => import('./pages/CreateTodo'))
-const { UpdateTodo } = lazily(() => import('./pages/UpdateTodo'))
-const { AllLists } = lazily(() => import('./pages/AllLists'))
-const { CreateList } = lazily(() => import('./pages/CreateList'))
+import { getApolloClient } from './utils/apolloClient';
 
 const App = () => {
   const [client, setClient] = useState(null)
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const authKey = localStorage.getItem('token') ?? process.env.REACT_APP_DB_KEY
-
-    const link = createHttpLink({
-      uri: 'https://graphql.fauna.com/graphql',
-      headers: {
-        authorization: `Bearer ${authKey}`
-      }
-    });
-
-    const cache = new InMemoryCache({
-      typePolicies: {
-        Query: {
-          fields: {
-            allTodos: {
-              merge(_, incoming) {
-                return incoming;
-              }
-            },
-            list: {
-              merge(_, incoming) {
-                return incoming;
-              }
-            },
-            allLists: {
-              merge(_, incoming) {
-                return incoming;
-              }
-            }
-          }
-        }
-      }
+    getApolloClient().then((client) => {
+      setClient(client as any)
+      setLoading(false)
     })
-
-    const client = new ApolloClient({
-      link,
-      cache
-    });
-
-    try {
-      (async () => {
-        await persistCache({
-          cache, storage: new LocalStorageWrapper(window.localStorage)
-        })
-      })()
-    } catch (err) { console.error('Apollo cache persist error', err) }
-
-    setClient(client as any)
-    setLoading(false)
   }, [])
+
 
   if (loading) {
     return (
@@ -78,6 +34,12 @@ const App = () => {
         <Header />
         <AllTodosLoader count={7} />
       </div>
+    )
+  }
+
+  if (!client) {
+    return (
+      <ErrorFallback error={'Could not connect to the client.'}/>
     )
   }
 

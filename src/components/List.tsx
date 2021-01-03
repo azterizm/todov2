@@ -16,7 +16,14 @@ export const List: FC<ListProps> = ({ list }) => {
   });
 
   const handleDelete = (): void => {
-    deleteList({ variables: { id: list._id } });
+    deleteList({
+      variables: { id: list._id } ,
+      optimisticResponse: {
+        deleteList: {
+          _id: list._id
+        }
+      }
+    });
   };
 
   const deleteElem: ReactElement = <img data-testid='deleteList' src={trashIcon} alt="" onClick={handleDelete} />;

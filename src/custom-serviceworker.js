@@ -29,17 +29,6 @@ registerRoute(
   }),
 );
 
-const graphqlSync = new workbox.backgroundSync.Plugin('GraphQL', {
-  maxRetentionTime: 24 * 60
-})
-registerRoute(
-  'https://graphql.fauna.com/graphql',
-  new NetworkOnly({
-    plugins: [graphqlSync]
-  }),
-  'POST'
-)
-
 registerRoute(
   ({ request }) =>
     request.destination === 'style' ||
@@ -75,8 +64,8 @@ registerRoute(
 );
 
 setCatchHandler(async ({e}) => {
-  if (e.request.url === 'https://graphql.fauna.com/graphql')
-    return matchPrecache('/offline.html')
+  if (e.request.url === 'https://graphql.fauna.com/graphql' || e.request.destination === 'script')
+    return matchPrecache('offline.html')
   else return Response.error()
 })
 
